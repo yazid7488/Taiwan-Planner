@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Taiwan Trip · Jul 2025</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Georgia,'Times New Roman',serif;background:#0d0c0b;color:#f0ead6;max-width:480px;margin:0 auto;min-height:100vh}
+.screen{display:none}.screen.active{display:block}
+
+/* ── HOME ── */
+.home-hero{padding:32px 22px 20px;background:linear-gradient(150deg,rgba(232,82,90,0.12) 0%,transparent 55%)}
+.eyebrow{font-size:10px;letter-spacing:4px;color:#a08050;text-transform:uppercase}
+.home-hero h1{font-size:34px;font-weight:400;line-height:1.05;margin:6px 0 4px}
+.home-hero h1 em{color:#e8525a;font-style:normal}
+.flights{display:flex;gap:8px;margin:12px 0 0}
+.fp{flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:10px 12px}
+.fp .fl{font-size:9px;color:#666;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px}
+.fp p{font-size:11px;color:#bbb;line-height:1.4}
+.home-body{padding:16px 22px 60px}
+.home-sec-label{font-size:10px;letter-spacing:3px;color:#a08050;text-transform:uppercase;margin:20px 0 12px;font-family:monospace}
+.loc-card{border-radius:16px;padding:16px;margin-bottom:12px;border:1px solid;cursor:pointer;transition:opacity 0.2s}
+.loc-card:active{opacity:0.8}
+.loc-inner{display:flex;gap:12px;align-items:flex-start}
+.loc-emoji{font-size:32px;line-height:1;flex-shrink:0}
+.loc-info h3{font-size:18px;font-weight:400;margin-bottom:1px}
+.loc-info .sub{font-size:12px;color:#888;margin-bottom:6px}
+.loc-info .hotel{font-size:12px;color:#ccc;margin-bottom:2px}
+.loc-info .pin{font-size:11px;color:#777;font-family:monospace}
+.loc-nights{font-size:10px;color:#666;font-family:monospace;flex-shrink:0}
+.loc-note{margin-top:8px;font-size:11px;border-radius:7px;padding:7px 10px;border-left:2px solid;line-height:1.5}
+.loc-btn{display:block;width:100%;border:none;border-radius:9px;padding:11px;font-size:13px;color:#fff;cursor:pointer;font-family:Georgia,serif;margin-top:12px}
+.itinerary-btn{display:block;width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:13px;font-size:14px;color:#f0ead6;cursor:pointer;font-family:Georgia,serif;margin-top:6px;text-align:center}
+
+/* ── GUIDE ── */
+.topbar{padding:16px 18px 0;display:flex;align-items:center;gap:10px}
+.back-btn{background:none;border:1px solid rgba(255,255,255,0.12);border-radius:20px;padding:6px 14px;color:#888;font-size:12px;cursor:pointer;font-family:Georgia,serif;flex-shrink:0}
+.screen-title{font-size:16px;font-weight:400;flex:1}
+.cat-nav{display:flex;gap:0;overflow-x:auto;padding:10px 16px 0;border-bottom:1px solid rgba(255,255,255,0.07);position:sticky;top:0;background:#0d0c0b;z-index:10}
+.cat-nav::-webkit-scrollbar{display:none}
+.cat-btn{flex-shrink:0;padding:10px 13px;font-size:12px;font-family:Georgia,serif;background:none;border:none;color:#666;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all 0.2s}
+.cat-btn.active{border-bottom-color:currentColor}
+.guide-section{display:none;padding:14px 16px 80px}.guide-section.active{display:block}
+.sec-label{font-size:10px;letter-spacing:3px;color:#a08050;text-transform:uppercase;font-family:monospace;margin-bottom:14px}
+.group-lbl{font-size:10px;letter-spacing:2px;color:#555;text-transform:uppercase;font-family:monospace;margin:14px 0 8px 2px}
+
+/* ── CARDS ── */
+.card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:14px;margin-bottom:10px;transition:border-color 0.25s}
+.card.yes{border-color:rgba(74,222,128,0.35)}.card.maybe{border-color:rgba(250,204,21,0.3)}
+.card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px}
+.card-name a{color:#f0ead6;font-size:15px;font-weight:400;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.2)}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px}
+.bdg{font-size:10px;padding:2px 8px;border-radius:20px}
+.map-bdg{background:rgba(56,189,248,0.1);color:#38bdf8;border:1px solid rgba(56,189,248,0.25);text-decoration:none;cursor:pointer}
+.card-meta{font-size:12px;color:#888;line-height:1.55;margin-bottom:8px}
+.card-tip{font-size:11px;color:#a08050;background:rgba(212,165,90,0.07);border-left:2px solid rgba(212,165,90,0.4);padding:7px 10px;border-radius:0 6px 6px 0;margin-bottom:10px;line-height:1.5}
+.halal-pill{display:inline-block;font-size:10px;color:#52b788;background:rgba(82,183,136,0.1);border:1px solid rgba(82,183,136,0.25);border-radius:20px;padding:3px 9px;margin-bottom:10px}
+.card-btns{display:flex;gap:6px}
+.btn{flex:1;padding:7px 2px;border-radius:8px;font-size:11px;font-family:Georgia,serif;cursor:pointer;border:1px solid;transition:all 0.2s;text-align:center;white-space:nowrap}
+.btn-yes{color:#4ade80;border-color:rgba(74,222,128,0.25);background:rgba(74,222,128,0.05)}
+.btn-yes.on{background:rgba(74,222,128,0.18);border-color:rgba(74,222,128,0.6);font-weight:600}
+.btn-maybe{color:#facc15;border-color:rgba(250,204,21,0.2);background:rgba(250,204,21,0.04)}
+.btn-maybe.on{background:rgba(250,204,21,0.13);border-color:rgba(250,204,21,0.55);font-weight:600}
+.btn-move{color:#a78bfa;border-color:rgba(167,139,250,0.2);background:rgba(167,139,250,0.04)}
+.btn-skip{color:#ef4444;border-color:rgba(239,68,68,0.2);background:rgba(239,68,68,0.04)}
+.btn-itin{color:#38bdf8;border-color:rgba(56,189,248,0.25);background:rgba(56,189,248,0.05)}
+.btn-itin.on{background:rgba(56,189,248,0.18);border-color:rgba(56,189,248,0.6);font-weight:600}
+.archive-section{margin-top:20px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.06)}
+.archive-title{font-size:10px;letter-spacing:3px;color:#555;text-transform:uppercase;font-family:monospace;margin-bottom:10px}
+.arc-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.05)}
+.arc-row:last-child{border-bottom:none}
+.arc-name{font-size:13px;margin-bottom:1px}
+.arc-cat{font-size:10px;color:#555}
+.restore-btn{font-size:11px;color:#d4a55a;background:rgba(212,165,90,0.1);border:1px solid rgba(212,165,90,0.25);border-radius:6px;padding:5px 10px;cursor:pointer;font-family:Georgia,serif}
+
+/* ── ITINERARY ── */
+.itin-hero{padding:20px 20px 12px;border-bottom:1px solid rgba(255,255,255,0.07)}
+.itin-hero h2{font-size:22px;font-weight:400}
+.itin-hero p{font-size:12px;color:#777;margin-top:3px}
+.day-tabs{display:flex;gap:6px;padding:12px 16px;overflow-x:auto;border-bottom:1px solid rgba(255,255,255,0.07)}
+.day-tabs::-webkit-scrollbar{display:none}
+.day-tab{flex-shrink:0;text-align:center;padding:8px 12px;border-radius:12px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:#777;cursor:pointer;font-size:11px;line-height:1.4;font-family:Georgia,serif;transition:all 0.2s;min-width:68px}
+.day-tab .dn{font-family:monospace;font-size:9px;margin-bottom:2px}
+.day-tab.active{background:rgba(255,255,255,0.1)}
+.itin-cards{padding:14px 16px 100px}
+.itin-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:14px;margin-bottom:8px}
+.itin-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.itin-card-name{font-size:14px;font-weight:400;color:#f0ead6;flex:1}
+.itin-card-loc{font-size:10px;color:#666;font-family:monospace;margin-top:3px}
+.itin-card-handle{font-size:18px;color:#444;padding:0 4px}
+.move-ud-btn{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:6px;color:#888;font-size:11px;cursor:pointer;padding:4px 7px;line-height:1;transition:all 0.15s}
+.move-ud-btn:active{background:rgba(255,255,255,0.15);color:#f0ead6}
+.itin-card-remove{font-size:12px;color:#ef4444;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:6px;padding:3px 8px;cursor:pointer;font-family:Georgia,serif;flex-shrink:0}
+.itin-empty{text-align:center;padding:40px 0;color:#444;font-style:italic;font-size:13px}
+.itin-day-label{font-size:10px;letter-spacing:3px;color:#a08050;text-transform:uppercase;font-family:monospace;margin-bottom:10px}
+
+/* ── MODALS ── */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:50;display:flex;align-items:flex-end;justify-content:center}
+.modal-bg.hidden{display:none}
+.modal{background:#1c1a18;border-radius:20px 20px 0 0;padding:22px 20px 40px;width:100%;max-width:480px;max-height:75vh;overflow-y:auto}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.modal-title{font-size:11px;letter-spacing:3px;color:#a08050;text-transform:uppercase;font-family:monospace}
+.modal-sub{font-size:13px;color:#888;margin-bottom:16px}
+.modal-close{background:none;border:none;color:#555;font-size:22px;cursor:pointer;line-height:1}
+.move-opt{display:block;width:100%;text-align:left;padding:10px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px;color:#ccc;font-size:13px;cursor:pointer;font-family:Georgia,serif;margin-bottom:8px;transition:all 0.15s}
+.move-opt:hover{background:rgba(255,255,255,0.08)}.move-opt.self{opacity:0.3;pointer-events:none}
+.day-opt{display:block;width:100%;text-align:left;padding:12px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:10px;color:#ccc;font-size:13px;cursor:pointer;font-family:Georgia,serif;margin-bottom:8px;transition:all 0.15s}
+.day-opt:hover{background:rgba(255,255,255,0.1);color:#f0ead6}
+.day-opt .do-day{font-size:10px;color:#666;font-family:monospace;margin-bottom:2px}
+.day-opt-grp{font-size:10px;letter-spacing:2px;color:#555;text-transform:uppercase;font-family:monospace;margin:12px 0 8px}
+.map-pin-row{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,0.06)}
+.map-pin-row:last-child{border-bottom:none}
+.map-pin-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0;margin-top:1px;font-family:monospace}
+.map-pin-name{font-size:13px;color:#f0ead6;line-height:1.3}
+.map-pin-loc{font-size:10px;color:#666;margin-top:2px}
+.map-all-day-group{margin-bottom:16px}
+.map-all-day-label{font-size:10px;letter-spacing:2px;color:#a08050;text-transform:uppercase;font-family:monospace;margin-bottom:8px}
+.map-all-empty{font-size:12px;color:#444;font-style:italic;padding:6px 0}
+</style>
+</head>
+<body>
+
+<!-- HOME -->
+<div id="screen-home" class="screen active">
+  <div class="home-hero">
+    <p class="eyebrow">5 – 14 Jul 2026</p>
+    <h1>Taiwan<br><em>Adventure</em></h1>
+    <div class="flights">
+      <div class="fp"><div class="fl">Outbound</div><p>BI 451 · BWN→TPE<br>8:35 AM · Sun 5 Jul</p></div>
+      <div class="fp"><div class="fl">Return</div><p>BI 452 · TPE→BWN<br>2:15 PM · Tue 14 Jul</p></div>
+    </div>
+  </div>
+  <div class="home-body">
+    <p class="home-sec-label">Explore by Destination</p>
+    <div id="home-locs"></div>
+    <p class="home-sec-label" style="margin-top:24px">My Itinerary</p>
+    <button class="itinerary-btn" onclick="showScreen('itinerary')">📅 View Full Trip Itinerary →</button>
+    <div style="margin-top:8px;background:rgba(82,183,136,0.07);border:1px solid rgba(82,183,136,0.2);border-radius:10px;padding:10px 14px">
+      <p style="font-size:11px;color:#52b788">🌙 All food marked halal-friendly throughout</p>
+    </div>
+  </div>
+</div>
+
+<!-- GUIDE -->
+<div id="screen-guide" class="screen">
+  <div class="topbar">
+    <button class="back-btn" onclick="showScreen('home')">← Home</button>
+    <span class="screen-title" id="guide-title"></span>
+    <button class="back-btn" style="color:#38bdf8;border-color:rgba(56,189,248,0.3)" onclick="showScreen('itinerary')">📅 Itinerary</button>
+  </div>
+  <nav class="cat-nav" id="guide-cats"></nav>
+  <div id="guide-sections"></div>
+</div>
+
+<!-- ITINERARY -->
+<div id="screen-itinerary" class="screen">
+  <div class="topbar">
+    <button class="back-btn" onclick="showScreen('home')">← Home</button>
+    <span class="screen-title">My Itinerary</span>
+  </div>
+  <div class="itin-hero">
+    <h2>Trip Planner</h2>
+    <p>▲▼ to reorder · Tap × to remove</p>
+  </div>
+  <div class="day-tabs" id="itin-day-tabs"></div>
+  <div class="itin-cards" id="itin-cards"></div>
+  <!-- Manual add form -->
+  <div id="manual-add-form" style="padding:0 16px 80px">
+    <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:14px">
+      <p style="font-size:10px;letter-spacing:3px;color:#a08050;text-transform:uppercase;font-family:monospace;margin-bottom:12px">+ Add Custom Plan</p>
+      <input id="manual-name" type="text" placeholder="Activity or place name…" onkeydown="if(event.key==='Enter')addManualItem()" style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px 12px;color:#f0ead6;font-size:14px;font-family:Georgia,serif;margin-bottom:8px;outline:none"/>
+      <input id="manual-note" type="text" placeholder="Note (optional — e.g. opens 9am, book ahead…)" onkeydown="if(event.key==='Enter')addManualItem()" style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px 12px;color:#f0ead6;font-size:13px;font-family:Georgia,serif;margin-bottom:10px;outline:none"/>
+      <div style="display:flex;gap:8px">
+        <select id="manual-type" style="flex:1;background:#1a1916;border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:9px 10px;color:#ccc;font-size:12px;font-family:Georgia,serif;outline:none">
+          <option value="🗺 Activity">🗺 Activity</option>
+          <option value="🍜 Food">🍜 Food</option>
+          <option value="☕ Coffee">☕ Coffee</option>
+          <option value="🛍 Shopping">🛍 Shopping</option>
+          <option value="🏨 Hotel">🏨 Hotel</option>
+          <option value="🚗 Transport">🚗 Transport</option>
+          <option value="📝 Note">📝 Note</option>
+        </select>
+        <button onclick="addManualItem()" style="flex:1;background:#d4a55a;border:none;border-radius:8px;padding:10px;color:#0d0c0b;font-size:13px;font-family:Georgia,serif;cursor:pointer;font-weight:600">Add to Day</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MOVE TO CATEGORY MODAL -->
+<div class="modal-bg hidden" id="modal-move" onclick="closeBg(event,'modal-move')">
+  <div class="modal">
+    <div class="modal-head"><span class="modal-title">Move to category</span><button class="modal-close" onclick="hideModal('modal-move')">✕</button></div>
+    <p class="modal-sub" id="modal-move-sub"></p>
+    <div id="modal-move-opts"></div>
+  </div>
+</div>
+
+<!-- ADD TO ITINERARY MODAL -->
+<div class="modal-bg hidden" id="modal-itin" onclick="closeBg(event,'modal-itin')">
+  <div class="modal">
+    <div class="modal-head"><span class="modal-title">Add to itinerary</span><button class="modal-close" onclick="hideModal('modal-itin')">✕</button></div>
+    <p class="modal-sub" id="modal-itin-sub">Choose a day</p>
+    <div id="modal-itin-opts"></div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════
+// LOCATIONS
+// ═══════════════════════════════════════════════════════════════════
+const LOCS = [
+  {id:'taipei',   name:'Taipei',        region:'Northern Taiwan', emoji:'🏙️', accent:'#e8525a', hotel:'Brown House Hotel', pin:'0442', nights:4, note:'✈ Arrive ~12:10 PM Sun 5 Jul (Terminal 1) · Check out Thu 9 Jul by 11AM'},
+  {id:'jiufen',   name:'Jiufen',        region:'Day Trip from Taipei · Tue 7 Jul', emoji:'🏮', accent:'#f59e0b', hotel:'Day trip — base at Brown House', pin:'—', nights:0, note:'Train to Ruifang (40 min) then Bus 788/1062 up · Leave by 8–9AM'},
+  {id:'alishan',  name:'Alishan',       region:'Day Trip from Fanlu · Fri 10 Jul', emoji:'🏔️', accent:'#52b788', hotel:'Day trip — base at SunSweet House', pin:'—', nights:0, note:'Depart early · Book Zhushan Sunrise Train in advance · Bring layers (cool at 2,000m)'},
+  {id:'taichung', name:'Taichung',      region:'Central Taiwan', emoji:'🌆', accent:'#f4a261', hotel:'Airline Inn Green Park Way', pin:'4995', nights:3, note:'Check in Sat 11 Jul from 3PM · Check out Tue 14 Jul by 11AM'},
+  {id:'sunmoon',  name:'Sun Moon Lake', region:'Day Trip from Taichung · Sun 12 Jul', emoji:'🌊', accent:'#38bdf8', hotel:'Day trip — base at Airline Inn', pin:'—', nights:0, note:'Bus 6670 from Taichung HSR ~1.5 hrs · Depart by 8AM · Last bus back ~5:30PM'},
+];
+
+// ═══════════════════════════════════════════════════════════════════
+// GUIDE DATA
+// ═══════════════════════════════════════════════════════════════════
+const GUIDE_DATA = {
+
+taipei: {
+  categories: ['activities','kids','halal','unique','coffee'],
+  catLabels:  {activities:'🗺 Activities', kids:'🧒 Kids', halal:'🌙 Halal', unique:'🍜 Unique Eats', coffee:'☕ Coffee'},
+  items: {
+    activities:[
+      {id:'ta1',name:'Chiang Kai-shek Memorial Hall',b1:'Monument',b2:'Free',meta:'Iconic blue-roofed memorial with vast ceremonial plaza and the famous hourly changing of the guard — one of Taiwan\'s most recognisable landmarks.',tip:'Arrive 10 min before the hour for the guard change. Noon ceremony is the most elaborate. MRT: CKS Memorial Hall Exit 5.'},
+      {id:'ta2',name:'Taipei 101 Observatory',b1:'Landmark',b2:'NT$600',meta:'Ride the world\'s fastest elevator to the 89th floor for sweeping views over the city, mountains and coastline.',tip:'Book tickets online to skip queues. Best light is late afternoon. Combine with the nearby Din Tai Fung for lunch.'},
+      {id:'ta3',name:'Longshan Temple',b1:'Temple',b2:'Free',meta:'Taipei\'s most atmospheric 270-year-old Buddhist/Taoist temple — always alive with incense smoke and worshippers.',tip:'Come before 9am for the best light and fewest crowds. Stunning during morning prayers.'},
+      {id:'ta4',name:'Dihua Street & Dadaocheng',b1:'Historic District',b2:'Free',meta:'Taipei\'s best-preserved Baroque-era shophouses, traditional herbs, fabric stores and great street snacks along the riverfront.',tip:'Combine with a sunset walk to Dadaocheng Wharf. Weekends have pop-up markets.'},
+      {id:'ta5',name:'Elephant Mountain (Xiangshan)',b1:'Hike & Views',b2:'Free',meta:'A steep 20-min hike rewarded with the most iconic Taipei 101 skyline view — the classic Taipei photo.',tip:'Sunset at 4–6pm is extraordinary. Trailhead is 5 min walk from Xiangshan MRT. Wear decent shoes.'},
+      {id:'ta6',name:'Huashan 1914 Creative Park',b1:'Arts & Culture',b2:'Free',meta:'Former sake factory turned into Taipei\'s most vibrant arts hub — indie shops, galleries, film screenings and excellent cafes.',tip:'10-min walk from your hotel on Zhongxiao East Road. Best on evenings and weekends when events are on.'},
+      {id:'ta7',name:'National Palace Museum',b1:'Museum',b2:'NT$350',meta:'World\'s greatest collection of Chinese imperial art — the Jadeite Cabbage and Meat-shaped Stone alone are worth the trip.',tip:'Allow 2–3 hrs. Located in Shilin — take bus 304 or taxi (~NT$200). Closed Mondays.'},
+      {id:'ta8',name:'Maokong Gondola & Tea Houses',b1:'Gondola / Tea',b2:'NT$120',meta:'Scenic gondola ride to the mountain Maokong area — traditional tea houses with city views. Glass-floor cabins available.',tip:'Evening is magical. Combine with Taipei Zoo next door for a full day out.'},
+      {id:'ta9',name:'Tamsui Old Street & Fisherman\'s Wharf',b1:'Waterfront',b2:'Free',meta:'Riverside old street with colonial forts, local snacks and spectacular sunsets over the river mouth.',tip:'Free ferry to Fisherman\'s Wharf (15 min) is wonderful at sunset. Walk the Lover\'s Bridge at dusk.'},
+      {id:'ta10',name:'Ximending',b1:'Shopping & Culture',b2:'Free',meta:'Taipei\'s "Times Square" — vibrant street art, fashion, street food and the famous cinema strip. Great evening stroll.',tip:'Comes alive after 5pm. The Red House at the west end has a weekend craft market. 15 min walk from hotel.'},
+      {id:'ta11',name:'Da\'an Forest Park',b1:'Park',b2:'Free',meta:'Taipei\'s green lungs — 26 hectares of lotus ponds, cycling paths and locals doing tai chi at dawn.',tip:'Lotus flowers are in full bloom in July. Combine with Yongkang Street for excellent food nearby.'},
+      {id:'ta12',name:'Raohe Night Market',b1:'Night Market',b2:'Free entry',meta:'One of Taipei\'s oldest and best night markets — 600-metre stretch of vendors, famously atmospheric Fuzhou Temple at the entrance.',tip:'Most famous stall: pepper pork buns (胡椒餅) at Stall 28. Busiest 6–10pm. 20 min from hotel by MRT.'},
+    ],
+    kids:[
+      {id:'tk1',name:'Taipei Zoo + Maokong Gondola',b1:'Zoo + Gondola',b2:'NT$60 + NT$120',meta:'One of Asia\'s largest zoos with over 300 species — pandas, penguins, African savanna — then ride the gondola right from the zoo gate to a mountain tea house.',tip:'Buy combined tickets. Arrive early (opens 9am) on weekends. The gondola glass-floor cabin is thrilling for kids.'},
+      {id:'tk2',name:'Land Bank Exhibition Hall (Dinosaurs)',b1:'Free Museum',b2:'Free',meta:'A full brachiosaurus skeleton in the atrium plus a dedicated children\'s dinosaur exhibit — every dino-obsessed kid\'s dream.',tip:'Right next to 2/28 Peace Memorial Park in central Taipei. Combine with a park picnic.'},
+      {id:'tk3',name:'Modern Toilet Restaurant · Ximending',b1:'Themed Restaurant',b2:'$$',meta:'Everything — seats, bowls, cups — is toilet-shaped. Kids go wild for the poo-shaped chocolate ice cream.',tip:'Reopened in Ximending 2024. Book ahead on weekends. Unforgettable novelty meal kids will talk about for years.'},
+      {id:'tk4',name:'National Taiwan Science Education Center',b1:'Science Museum',b2:'NT$100',meta:'Six floors of hands-on science exhibits — earthquake simulators, robotics, space exploration. All bilingual.',tip:'In Shilin, 5-min taxi from Shilin Night Market. Closed Mondays.'},
+      {id:'tk5',name:'Shilin Night Market',b1:'Night Market',b2:'Free entry',meta:'Taipei\'s biggest night market — a labyrinth of stalls. Kids love the spectacle and especially the giant fried chicken.',tip:'Start at the indoor basement for snacks, then explore surrounding streets. Busiest 7–10pm.'},
+      {id:'tk6',name:'Taipei Children\'s Amusement Park',b1:'Amusement Park',b2:'NT$30/ride',meta:'Old-school amusement park in Shilin — mini roller coaster, carousel, bumper cars, sky train. Great value.',tip:'Right next to Shilin MRT. Pay per ride. Best for under-10s. Open daily except Mondays.'},
+      {id:'tk7',name:'Capybara Knight Café',b1:'Animal Café',b2:'NT$280',meta:'Feed and pet resident capybaras, plus get a drink and capybara-shaped taiyaki. A magical surprise for young kids.',tip:'Book in advance online — sells out. In Da\'an District. The capybaras are huge, gentle and endlessly entertaining.'},
+      {id:'tk8',name:'Taipei Astronomical Museum',b1:'Planetarium',b2:'NT$40–100',meta:'Full planetarium, IMAX dome and interactive space exhibits. Dome shows run throughout the day.',tip:'In Shilin near children\'s park. Combined museum + dome show ticket is the best value. Bilingual.'},
+      {id:'tk9',name:'Pineapple Cake Making Class',b1:'Cooking Class',b2:'NT$500–800',meta:'Kids make Taiwan\'s most famous souvenir food — pineapple cakes — and take them home in a gift box.',tip:'Book via KKday or Airbnb Experiences. Multiple studios near Ximending. Great rainy-day activity.'},
+      {id:'tk10',name:'Miramar Ferris Wheel & Mall',b1:'Ferris Wheel',b2:'NT$150',meta:'A giant rooftop Ferris wheel atop a mall in Zhongshan — beautiful city views, plus a cinema, food court and bowling.',tip:'Open until midnight. One of Taipei\'s most romantic (and kid-friendly) evening activities.'},
+    ],
+    halal:[
+      {id:'th1',name:'Chungkuo Halal Beef Restaurant',b1:'Taiwanese Muslim',b2:'$',halal:'Certified · Chinese Muslim Association',meta:'A Taipei halal institution — the beef with pancakes is legendary. One of the most respected Muslim restaurants in the city.',tip:'Must order: Beef with pancakes (NT$155). Near Zhongshan. Open daily except Wednesdays.'},
+      {id:'th2',name:'Chang\'s Beef Noodle Shop',b1:'Michelin Bib Gourmand',b2:'$',halal:'Halal certified · Muslim-owned',meta:'Michelin-recognised halal beef noodle shop in Xinyi — rich, slow-braised broth and generous portions. The definitive halal version of Taiwan\'s national dish.',tip:'Located in Shin Kong Mitsukoshi Xinyi A8, B2 basement. Open daily. NT$150–265.'},
+      {id:'th3',name:'Uncle Ma\'s Halal Breakfast',b1:'Taiwanese Halal Breakfast',b2:'$',halal:'Certified · Taipei Grand Mosque',meta:'The only halal shao bing shop in Taipei — freshly made traditional Taiwanese breakfast pastries by a Muslim Taiwanese family.',tip:'Beef Shao Bing (NT$65) is the must-order. Locals queue for takeaways every morning.'},
+      {id:'th4',name:'Mouna Restaurant',b1:'Moroccan / Multi-cuisine',b2:'$$',halal:'Muslim-owned · Halal certified',meta:'Warmly decorated halal restaurant serving Moroccan tagines, couscous and grilled meats with the best mint tea in Taipei.',tip:'Address: No. 48, Sec. 3, Xinsheng S. Rd, Da\'an. Small place — arrive early.'},
+      {id:'th5',name:'Tandoor Indian Restaurant',b1:'North Indian Halal',b2:'$$',halal:'Halal certified',meta:'One of Taipei\'s finest certified halal Indian restaurants — butter chicken, tandoori dishes and fresh naan from a proper clay oven.',tip:'Address: No. 10, Lane 73, Sec. 2, Dunhua S. Rd. Closed Tuesdays. Mixed grill platter feeds two.'},
+      {id:'th6',name:'Mayur\'s Indian Kitchen',b1:'Indian Halal',b2:'$$',halal:'Halal certified · 14+ regional styles',meta:'Extraordinary certified halal Indian restaurant showcasing 14 regional Indian cooking styles — Mughal to South Indian.',tip:'Extensive vegetarian menu too. In Da\'an District. Butter chicken, vegetarian biryani and keema naan.'},
+      {id:'th7',name:'Yunus Halal Restaurant',b1:'Thai-Taiwanese Halal',b2:'$$',halal:'Halal certified · Prayer room on-site',meta:'A welcoming certified halal Thai restaurant with a prayer room available. Cosy family-friendly atmosphere.',tip:'Pad Thai with halal chicken is the signature. Call ahead to confirm prayer room availability.'},
+      {id:'th8',name:'Masala Art',b1:'Indian Halal',b2:'$$',halal:'Halal-friendly · Near Yuanshan MRT',meta:'Authentic curries and tandoori dishes near Expo Park. Popular lunch destination for Muslim visitors to northern Taipei.',tip:'Address: No. 8, Yumen St, Zhongshan. Great outdoor seating. Chicken tikka masala + garlic naan is the crowd fave.'},
+      {id:'th9',name:'Khana Khazana',b1:'Indian Halal',b2:'$$',halal:'Halal certified',meta:'Classic Indian halal fare in a comfortable family-friendly setting near Zhongxiao Dunhua.',tip:'Address: No. 36, Lane 553, Sec. 4 Zhongxiao E Rd. Note lunch/dinner split hours — no mid-afternoon service.'},
+      {id:'th10',name:'Fried Chicken Master',b1:'Halal Fried Chicken',b2:'$',halal:'Taiwan\'s only halal-certified fried chicken chain',meta:'The one and only halal-certified Taiwanese popcorn chicken chain. Juicy, crispy, completely halal-assured.',tip:'Multiple branches across Taipei. Salted crispy chicken is the must-order. Great between sightseeing.'},
+      {id:'th11',name:'Kuozang Mini Hot Pot',b1:'Halal Hot Pot',b2:'$',halal:'Halal certified · Musholla on 3rd floor',meta:'Taiwan\'s favourite communal dining experience — hot pot — in a fully halal-certified setting with individual pots.',tip:'In New Taipei City (accessible by MRT). Prayer room on 3rd floor. Perfect for a relaxed family dinner.'},
+      {id:'th12',name:'1001 Nights Kitchen',b1:'Middle Eastern Halal',b2:'$$',halal:'Muslim-friendly · Middle Eastern-owned',meta:'Kebabs, hummus, shawarma and lamb dishes in a warmly decorated Middle Eastern-themed space.',tip:'Favourite among Taipei\'s Muslim expat community. Great for a family dinner. Search Google Maps for current address.'},
+    ],
+    unique:[
+      {id:'tu1',name:'Beef Noodle Soup · Yongkang Street',b1:'Taiwan\'s National Dish',b2:'$',meta:'Thick wheat noodles in rich braised beef broth with fall-apart beef and pickled greens. Yongkang Beef Noodles is legendary.',tip:'Yongkang Beef Noodles: No. 17, Sec. 2, Jinshan S. Rd. For halal: see Chang\'s Beef Noodle in the halal section.'},
+      {id:'tu2',name:'Xiao Long Bao · Din Tai Fung',b1:'Soup Dumplings',b2:'$$',meta:'Delicate dumplings with a spoonful of hot soup inside. Din Tai Fung on Yongkang Street is the originator of this global phenomenon.',tip:'Queue from 11am opening or book online. Watch the chefs fold 18 pleats through the glass. Order crab & pork for something special.'},
+      {id:'tu3',name:'Mango Shaved Ice',b1:'Iconic Dessert',b2:'$',meta:'Mountains of snow-fine shaved ice, fresh Irwin mango chunks, sorbet and condensed milk. July is peak mango season.',tip:'Smoothie House (思慕昔) on Yongkang Street invented it. Ice Monster on Zhongxiao E Rd is also legendary.'},
+      {id:'tu4',name:'Pineapple Cake · SunnyHills',b1:'Taiwan Icon',b2:'$',meta:'Buttery pastry shell with sweet-tangy pineapple jam. SunnyHills on Minsheng E Rd gives free samples with tea.',tip:'Worth visiting just for the free samples. No obligation to buy. Best brands: SunnyHills and Vigor Kobo (維格).'},
+      {id:'tu5',name:'Scallion Pancake (蔥抓餅)',b1:'Street Food',b2:'$',meta:'Flaky layered pancake with scallions, cooked on a griddle until shatteringly crispy outside and chewy inside.',tip:'Michelin Bib Gourmand: Hsiung Chi at Gongguan Night Market, Stall 48. NT$30–50.'},
+      {id:'tu6',name:'Bubble Tea · Tiger Sugar',b1:'Taiwan\'s Great Invention',b2:'$',meta:'Taiwan invented bubble tea — from classic brown sugar milk tea to seasonal fruit teas with fresh jelly.',tip:'Tiger Sugar (老虎堂) on Da\'an Rd is famous for brown sugar striped milk tea. Chun Shui Tang claims to be the original.'},
+      {id:'tu7',name:'Peanut Ice Cream Roll',b1:'Night Market Dessert',b2:'$',meta:'Rice flour tortilla filled with ice cream, topped with freshly shaved peanut brittle and optionally cilantro.',tip:'Found at every night market. Watch the vendor shave the peanut block — mesmerising. Eat immediately. NT$60.'},
+      {id:'tu8',name:'Douhua (豆花) Tofu Pudding',b1:'Soft Dessert',b2:'$',meta:'Silky tofu pudding served warm or cold with sweet ginger syrup, red beans, grass jelly and taro balls.',tip:'Halal-friendly. Found everywhere. Old-school shops serve from clay pots. Try it warm. NT$40–60.'},
+      {id:'tu9',name:'Oyster Omelette (蚵仔煎)',b1:'Night Market Classic',b2:'$',meta:'Fresh oysters in a chewy sweet potato starch egg omelette with sweet-savoury red sauce. Simultaneously strange and addictive.',tip:'Best at Shilin Night Market\'s indoor basement. The texture is unlike anything else — gooey, crispy, eggy.'},
+      {id:'tu10',name:'Pepper Pork Bun (胡椒餅)',b1:'Night Market Snack',b2:'$',meta:'Doughy bun stuffed with pork and white pepper, baked in a charcoal-fired drum oven until the crust blisters.',tip:'Fuzhou Shizu at Raohe Night Market, Stall 28. Always worth the queue. NT$55 per bun.'},
+      {id:'tu11',name:'Stinky Tofu (臭豆腐)',b1:'Love it or Hate it',b2:'$',meta:'Fermented tofu that smells aggressively funky but is crispy and complex when deep-fried. A genuine cultural experience.',tip:'The smell leads you to the stall. Order deep-fried (炸臭豆腐) with pickled cabbage. At Shilin or Raohe Night Market.'},
+      {id:'tu12',name:'Lu Rou Fan (滷肉飯) · Braised Pork Rice',b1:'Comfort Classic',b2:'$',meta:'Taiwan\'s beloved braised pork over rice — meltingly tender pork belly in sweet soy sauce with a pickled radish.',tip:'Not halal (pork). Found at almost every local eatery. Jin Feng Lu Rou Fan near CKS Memorial is the most famous.'},
+    ],
+    coffee:[
+      {id:'tc1',name:'Simple Kaffa',b1:'World Barista Champion',b2:'$$',meta:'Founded by Berg Wu, first Taiwanese World Barista Champion (2016). One of the most decorated coffee shops in Asia on Zhongxiao East Rd.',tip:'Address: No. 27, Sec. 2, Zhongxiao E Rd. Go early. Award-winning espresso. Rare single-origin Taiwanese beans.'},
+      {id:'tc2',name:'Fika Fika Cafe',b1:'Scandinavian Specialty',b2:'$$',meta:'Beautiful Scandinavian-influenced cafe in Zhongshan — Taiwanese-grown beans for filter alongside Nordic roasts.',tip:'Address: No. 33, Yitong St, Zhongshan. Competition-style espresso is unlike anything else in Taipei. Great brunch too.'},
+      {id:'tc3',name:'Rufous Coffee',b1:'Beloved Independent',b2:'$$',meta:'One of Taipei\'s most beloved independent roasters — no trends, just consistently excellent coffee.',tip:'Multiple locations across Taipei. Filter menu changes seasonally. A benchmark for Taipei coffee.'},
+      {id:'tc4',name:'All Day Roasting Company',b1:'Brunch & Coffee',b2:'$$',meta:'Consistently rated one of the best overall cafe experiences in Taipei — excellent coffee, outstanding brunch, no time limit.',tip:'Order brunch set with sourdough and yuzu jam alongside the milk pour. Staff are passionate coffee geeks.'},
+      {id:'tc5',name:'Instil Coffee',b1:'Minimalist & Photogenic',b2:'$$',meta:'Thoughtfully minimal cafe in Da\'an with a living tree growing through the middle round table. Light roast filter coffee is particularly expressive.',tip:'HARIO Tri-Up Dripper for fruity pourover. Great for Instagram and great coffee — a rare combo.'},
+      {id:'tc6',name:'Ao Tao Zu Café (Coffee + Dumplings)',b1:'Unique Concept',b2:'$$',meta:'A wildly unique walk-up spot where specialty pourover coffee meets handmade dumplings. One of Taipei\'s most talked-about concepts.',tip:'Worth seeking out. Coffee is genuinely excellent. Dumpling and coffee pairing sounds odd but works. Cash only.'},
+      {id:'tc7',name:'Simple Kaffa Sola · Taipei 101',b1:'Highest Coffee in Taipei',b2:'$$$',meta:'Berg Wu\'s second location inside Taipei 101 — possibly the world\'s highest specialty coffee bar with breathtaking city views.',tip:'On the 85th floor of Taipei 101. A premium experience with a premium price tag. Reserve ahead on weekends.'},
+    ],
+  }
+},
+
+jiufen: {
+  categories: ['activities','food','coffee'],
+  catLabels: {activities:'🗺 To Do', food:'🍜 Food & Eats', coffee:'☕ Coffee & Tea'},
+  items: {
+    activities:[
+      {id:'ja1',name:'Jiufen Old Street (Jishan St)',b1:'Must Do',b2:'Free',meta:'The atmospheric lantern-lit hillside alley that inspired Spirited Away — narrow stone steps, old tea houses and ocean views.',tip:'Arrive before 10am to beat tour groups. The iconic red lanterns are most photogenic at dusk.'},
+      {id:'ja2',name:'A-Mei Teahouse (Spirited Away)',b1:'Iconic Teahouse',b2:'$$',meta:'The bathhouse that inspired Miyazaki\'s masterpiece — multi-level teahouse with sweeping ocean and mountain views.',tip:'Reserve a window seat in advance. Order high mountain oolong tea set. Visit at golden hour for the best photos.'},
+      {id:'ja3',name:'Gold Ecological Park (Jinguashi)',b1:'Museum & Mine',b2:'NT$80',meta:'Fascinating outdoor museum of Taiwan\'s gold mining history — underground tunnels, gold panning and sweeping coastal views.',tip:'15-min downhill walk or short bus from Jiufen Old Street. Try gold panning — you keep what you find!'},
+      {id:'ja4',name:'Shenping Theater',b1:'Historic Theater',b2:'Free',meta:'Beautifully restored 1934 Japanese-era cinema — original fittings, old movie projector and occasional screenings.',tip:'Reopened Jan 2024 after full restoration. Closed first Monday of the month. Great free toilet stop too!'},
+      {id:'ja5',name:'Qingyun Temple',b1:'Taoist Temple',b2:'Free',meta:'Gorgeous Taoist temple at the bottom of Jiufen Old Street with intricate carvings, fountains and incredible landscape views.',tip:'At the entrance of the Old Street — great way to start or end your visit.'},
+      {id:'ja6',name:'Jiufen Summit Observation Deck',b1:'Viewpoint',b2:'Free',meta:'Hike to the very top of Jiufen past the main tourist street for unobstructed panoramic views over the entire coastline.',tip:'30–40 min walk up from the main street. Worth it for the unblocked view — away from the tourist crowds.'},
+      {id:'ja7',name:'Shifen Waterfall & Sky Lanterns',b1:'Add-On Day Trip',b2:'NT$200/lantern',meta:'Just 20 min from Jiufen — the most impressive waterfall in northern Taiwan plus the famous sky lantern releasing tradition.',tip:'Combine both in one day: Jiufen in the morning, Shifen in the afternoon via a short taxi or local bus.'},
+    ],
+    food:[
+      {id:'jf1',name:'A-Gan-Yi Taro Ball',b1:'Oldest Taro Ball Shop',b2:'$',meta:'Michelin-mentioned oldest taro ball shop in Jiufen — handmade chewy taro and sweet potato balls with sweeping hill views.',tip:'Mixed bowl with taro balls, red beans and grass jelly. Get the cold version in July. Seats with ocean views.'},
+      {id:'jf2',name:'Lai Ah Po Taro Balls',b1:'Taro Balls',b2:'$',meta:'Watch generations of the family hand-rolling taro dough right next to the shop — incredibly fresh with a loyal local following.',tip:'Both hot and cold versions available. The hot version is oddly better even in summer — the texture is more bouncy.'},
+      {id:'jf3',name:'A-Zhu Peanut Ice Cream Roll',b1:'Night Market Dessert',b2:'$',meta:'Thin rice flour crepe filled with peanut brittle shavings and two scoops of ice cream — Jiufen\'s most famous street dessert.',tip:'Three flavours: pineapple, peanut and taro. Don\'t skip the cilantro unless you genetically can\'t stand it. NT$60.'},
+      {id:'jf4',name:'Jiufen Ginger Tea',b1:'Warming Local Drink',b2:'$',meta:'A sweet-spiced aromatic ginger brew that reflects the heartwarming hospitality of Jiufen — unlike any ginger tea you\'ve tried.',tip:'Found at small stalls throughout the Old Street. Also pair with a jug of fresh almond milk from the same vendors.'},
+      {id:'jf5',name:'Herbal Tea Eggs (茶葉蛋)',b1:'Street Snack',b2:'$',meta:'Tea-marbled eggs stewed in aromatic spices — one of Taiwan\'s most comforting and accessible street snacks.',tip:'Halal-friendly. Found at convenience stores and street stalls throughout Jiufen. NT$15–25 per egg.'},
+      {id:'jf6',name:'Oyster Vermicelli (蚵仔麵線)',b1:'Jiufen Classic',b2:'$',meta:'A thick, slightly gummy vermicelli noodle soup with fresh oysters or pig intestine in a savory starchy broth.',tip:'A local staple at many stalls on Jishan Street. Get the oyster-only version. Eat standing at the stall.'},
+      {id:'jf7',name:'Mango Shaved Ice (seasonal)',b1:'Summer Dessert',b2:'$',meta:'July is peak mango season in Taiwan — several stalls serve fresh mango shaved ice loaded with real fruit.',tip:'Look for stalls with fresh mangoes displayed out front. The quality varies enormously — inspect the fruit first.'},
+      {id:'jf8',name:'Yuyuan Sweet Soup (湯圓)',b1:'Glutinous Dessert',b2:'$',meta:'Small glutinous rice balls in sweet soup — can be sweet (red bean, sesame) or savoury. A Taiwanese comfort classic.',tip:'Found at many dessert stalls. Go for the mixed sweet version with red bean and peanut. Warm is best.'},
+      {id:'jf9',name:'Pack Halal Lunch from Taipei',b1:'Halal Planning',b2:'$',meta:'Jiufen has very limited verified halal options — safest is to bring a halal lunch from Taipei before departing.',tip:'Pack a halal bento from Taipei (Chang\'s or Chungkuo) or grab 7-Eleven halal items before boarding the train.'},
+    ],
+    coffee:[
+      {id:'jc1',name:'Twilight Café',b1:'Sunset Views',b2:'$$',meta:'Outdoor second-floor seating with full sea views — designed to be visited between 5–7pm for the legendary Jiufen sunset.',tip:'Specialty coffee, non-caffeinated drinks and Caramel Earl Grey Pudding. Book a sunset window slot. Popular and worth it.'},
+      {id:'jc2',name:'Artist Teahouse (藝術茶坊)',b1:'Traditional Tea',b2:'$$',meta:'A beautifully traditional teahouse on Qingbian Road with cliff-edge sea views. Tea sets served with turtle-shaped baked cakes.',tip:'Vouchers available on Klook for up to 15% off. Opening hours: 1:30–7pm. One of the most photographed interiors in Taiwan.'},
+      {id:'jc3',name:'Jioufen Teahouse',b1:'Classic Teahouse',b2:'$$',meta:'One of Jiufen\'s most established tea houses — clay teapots, full tea ceremony experience and panoramic views of the hills.',tip:'Opening hours: Sun 11am–8pm. Seated brewing sets include all equipment. Pair with steamed chestnuts from the kitchen.'},
+      {id:'jc4',name:'Memory Coffee (Ruifang Station)',b1:'Specialty Coffee',b2:'$',meta:'The cafe directly opposite Ruifang Train Station — reportedly some of the best coffee in the entire area, ideal for the journey home.',tip:'Stop here after returning from Jiufen while waiting for your Taipei-bound train. Highly rated by travellers.'},
+    ],
+  }
+},
+
+alishan: {
+  categories: ['activities','food'],
+  catLabels: {activities:'🏔️ To Do', food:'🍵 Food & Drinks'},
+  items: {
+    activities:[
+      {id:'aa1',name:'Zhushan Sunrise & Sea of Clouds',b1:'Must Do · Book Ahead',b2:'NT$100 train',meta:'The signature Alishan experience — board the tiny forest train before dawn to the sunrise platform and watch the sun rise over a sea of clouds.',tip:'Sunrise train departs ~1 hr before sunrise. Book tickets online at the Alishan Forest Railway website — they SELL OUT days in advance. Check cloud conditions the night before.'},
+      {id:'aa2',name:'Alishan Forest Recreation Area',b1:'National Forest',b2:'NT$300',meta:'Wander ancient cypress forests, misty trails and see sacred trees over 2,000 years old. Bring layers — it\'s cool at 2,000m even in July.',tip:'Buy entry tickets in advance online. The Triangle Route (Zhaoping → Sisters Pond → Shouzhen Temple → Sacred Tree) is the classic walk. About 2 hrs.'},
+      {id:'aa3',name:'Sacred Tree Trail & Shouzhen Temple',b1:'Forest Walk',b2:'Included in park',meta:'Train to Zhaoping Station then walk the misty forest trail past the beautiful Shouzhen Temple to the ancient Sacred Tree.',tip:'Flat and accessible for all fitness levels. The cypress trees are over 1,000 years old. Morning mist makes the atmosphere magical.'},
+      {id:'aa4',name:'Alishan Forest Railway Ride',b1:'Heritage Railway',b2:'NT$100–200',meta:'One of the world\'s great mountain railways — a narrow-gauge train winding through misty cypress forest with four different engineering methods on one line.',tip:'Ride between stations rather than hiking between all of them. The Zhaoping and Shenmu sections are the most scenic.'},
+      {id:'aa5',name:'Sisters Pond (姊妹潭)',b1:'Scenic Lakes',b2:'Included in park',meta:'Two high-mountain lakes of different sizes so clear they look like mirrors — stunning reflections of cypress forest.',tip:'On the main walking circuit between Zhaoping and Shenmu stations. Beautiful in the morning mist. Easy 20-min walk from station.'},
+      {id:'aa6',name:'Fenqihu Old Street',b1:'Mountain Village',b2:'Free',meta:'A Japanese-era mountain village on the forest railway route with a lovingly restored old street and colonial architecture.',tip:'Stop here on the way up or down. Famous for its traditional railway bento boxes — a cultural must-try.'},
+      {id:'aa7',name:'Stargazing Tour (Evening)',b1:'Night Activity',b2:'Book in advance',meta:'If staying overnight, join a professional guided stargazing tour — on clear nights you can see the Milky Way from 2,000m.',tip:'Sign up in advance at the visitor centre or through your accommodation. Bring a very warm jacket — even in July it gets cold at night on the mountain.'},
+      {id:'aa8',name:'Bamboo Forest Walk · Fanlu Area',b1:'Nature Walk',b2:'Free',meta:'The area around SunSweet House in Fanlu has beautiful bamboo groves and tea terraces — a peaceful morning walk from base.',tip:'Ask your host at SunSweet House for the nearest walking trail. The morning mist over the tea terraces is extraordinary.'},
+    ],
+    food:[
+      {id:'af1',name:'Alishan High Mountain Oolong Tea',b1:'Must Try',b2:'$',meta:'The world\'s most famous high-altitude oolong tea, grown at 1,000–2,300m with short sunshine and large temperature swings — extraordinary complexity.',tip:'Buy loose leaf direct from the Alishan Visitor Centre or farm stalls. Avoid tourist traps at the entrance. A pot at a mountain tea house costs NT$150–300.'},
+      {id:'af2',name:'Fenqihu Railway Bento (鐵路便當)',b1:'Cultural Tradition',b2:'$',meta:'Traditional bento boxes eaten by railway workers for generations — rice, pickled vegetables, braised protein and local mountain flavours.',tip:'Get the chicken or tofu bento (ask: 沒有豬肉? — no pork?) at Fenqihu station. A genuinely historic meal experience.'},
+      {id:'af3',name:'Millet Mochi',b1:'Indigenous Snack',b2:'$',meta:'A chewy glutinous cake made from millet — a traditional indigenous Taiwanese ingredient from the Tsou people who inhabit Alishan.',tip:'Look for stalls in Alishan village selling handmade mochi. Naturally halal. Try sesame or sweet potato flavour.'},
+      {id:'af4',name:'Sunrise Cake (日出餅)',b1:'Alishan Souvenir',b2:'$',meta:'A flat-layered pastry unique to Alishan — a local take on the pineapple cake tradition, made with mountain oolong tea flavouring.',tip:'Available at souvenir stalls throughout the park. A good edible memento of the Alishan sunrise.'},
+      {id:'af5',name:'Bamboo Rice (竹筒飯)',b1:'Indigenous Food',b2:'$',meta:'Sticky rice steamed inside a bamboo tube — an indigenous Tsou traditional preparation that infuses the rice with fresh bamboo fragrance.',tip:'Halal-friendly. Available at some village stalls. Ask for vegetarian version to be safe. The bamboo aroma is unique.'},
+      {id:'af6',name:'7-Eleven at Alishan Station',b1:'Convenience',b2:'$',meta:'The highest convenience store in Taiwan — and one of the most useful. Stock up on halal-safe snacks, packaged food and drinks here.',tip:'At 2,216m, it\'s a Taiwan record. Great for halal packaged items with 清真 labels. Hot coffee machines and sandwiches available.'},
+      {id:'af7',name:'Pack Halal Lunch from Chiayi',b1:'Halal Planning',b2:'$',meta:'Alishan has very limited halal-verified dining options. Pack a halal lunch from Chiayi city before heading up.',tip:'Muslim-friendly restaurants near Chiayi Station. Alternatively, vegetarian restaurants (素食) on the mountain are pork-free.'},
+    ],
+  }
+},
+
+taichung: {
+  categories: ['activities','halal','unique','coffee'],
+  catLabels: {activities:'🗺 To Do', halal:'🌙 Halal Food', unique:'🍜 Unique Eats', coffee:'☕ Coffee'},
+  items: {
+    activities:[
+      {id:'ca1',name:'Rainbow Village (彩虹眷村)',b1:'Street Art',b2:'Free',meta:'A tiny village completely covered in vibrant folk art painted by a single veteran (Grandpa Rainbow) — one of Taiwan\'s most charming and unlikely tourist spots.',tip:'About 20 min by taxi from your hotel. Small but genuinely delightful. Free entry. Combine with a nearby lunch.'},
+      {id:'ca2',name:'National Taichung Theater',b1:'Architecture',b2:'Free lobby',meta:'Kazuyo Sejima\'s extraordinary cave-like masterpiece of modern architecture — even without a show, the interior is a free spectacle.',tip:'Just 10 min from your hotel. Free to enter the lobby and ground floor. World-class building worth seeing even if you\'re not an architecture fan.'},
+      {id:'ca3',name:'Calligraphy Greenway',b1:'Park / Bookshops',b2:'Free',meta:'A 1.6km green corridor lined with independent bookstores, art installations, cafes and the beautiful Taichung Literature Museum in a Japanese colonial building.',tip:'Perfect evening walk. Many cafes and bookshops stay open late. The Literature Museum building is the most beautiful spot.'},
+      {id:'ca4',name:'Fengjia Night Market',b1:'Night Market',b2:'Free entry',meta:'One of Taiwan\'s largest and most popular night markets — hundreds of food stalls and shops. Busiest night market in Taichung.',tip:'15 min by taxi from hotel. Busiest after 7pm. Great for your first evening in Taichung.'},
+      {id:'ca5',name:'National Museum of Natural Science',b1:'Museum',b2:'NT$100',meta:'One of Taiwan\'s best science museums — dinosaurs, space hall, a botanical garden and a planetarium. Brilliant for a family day.',tip:'Near Zhongshan Park. Botanical garden attached is free. Buy combined tickets for museum + planetarium show.'},
+      {id:'ca6',name:'Zhongshe Flower Market',b1:'Flower Garden',b2:'NT$200',meta:'A vast seasonal flower garden 30 min from Taichung — July features sunflowers, lotus and tropical blooms over rolling hillside fields.',tip:'Best in the morning. Arrange a taxi (limited public transport). The sunflower fields in July are extraordinary.'},
+      {id:'ca7',name:'Miyahara (宮原眼科)',b1:'Iconic Building',b2:'Free to enter',meta:'A century-old optician\'s building turned into Taiwan\'s most dramatic ice cream parlour — soaring ceilings and over 60 ice cream flavours.',tip:'Go early to avoid queues (try 9–10am at opening). Fourth Credit Union down the road has shorter queues. NT$355 for 3 scoops.'},
+      {id:'ca8',name:'Taichung Park',b1:'Historic Park',b2:'Free',meta:'Taichung\'s oldest park with a beautiful Japanese-era Huxin Pavilion on the lake — one of the city\'s most iconic images.',tip:'Beautiful for a morning walk before the city heats up. Bring camera for the pavilion reflection at sunrise.'},
+      {id:'ca9',name:'Gaomei Wetlands Sunset',b1:'Nature / Sunset',b2:'Free',meta:'A stunning wetland nature reserve 30 min from Taichung — famous for the tidal flats at sunset with wind turbines silhouetted against an orange sky.',tip:'One of Taiwan\'s best sunsets. Go 1 hr before sunset. Take Bus 178 from Taichung HSR Station. Wear flip flops for the mudflats.'},
+      {id:'ca10',name:'Bubble Tea at Chun Shui Tang',b1:'Birthplace of Bubble Tea',b2:'$',meta:'The tea house that claims to have invented bubble tea in 1986 — now a Taichung institution with multiple branches.',tip:'The original branch is on Siquan St, Zhongqu. Pearl milk tea (NT$90 for small). For halal: ask for TP Tea, their sister brand.'},
+    ],
+    halal:[
+      {id:'ch1',name:'Little India Muslim Restaurant',b1:'Halal Certified',b2:'$',meta:'A tiny but beloved halal Indian restaurant in West District — honest, bold curry and naan near your hotel.',tip:'Address: No. 60, Boguan 3rd St, West District. No credit cards. Curry rice or dal with roti is the go-to. Highly rated by Muslim visitors.'},
+      {id:'ch2',name:'Anatolia Turkish Restaurant',b1:'Turkish Halal · Certified',b2:'$$',meta:'Charming halal Turkish restaurant near the Tempus Hotel — kebabs, mezze, pide breads and a prayer space for guests.',tip:'Fresh seafood, meats and cold mezze platters. Staff are attentive and excellent. Ask to see the halal certificate.'},
+      {id:'ch3',name:'Miyahara Ice Cream',b1:'Halal-Friendly Dessert',b2:'$',meta:'Over 60 dairy-based ice cream flavours in a spectacular century-old building — no pork or alcohol used in the making.',tip:'Pineapple cake sundae and taro are the best flavours. Dairy-based and completely halal-safe. NT$355 for 3 scoops with toppings.'},
+      {id:'ch4',name:'Vegetarian (素食) Restaurants',b1:'Buddhist Vegetarian',b2:'$',meta:'Taichung has many Buddhist vegetarian restaurants — naturally pork-free, lard-free and safe for Muslim diners.',tip:'Look for 素食 signs near temples and night markets. Full meals from NT$80–150. The tofu and mock meat dishes are excellent.'},
+      {id:'ch5',name:'Second Market Halal Stalls',b1:'Historic Market',b2:'$',meta:'Taichung\'s beautiful Japanese-era covered Second Market (第二市場) has several egg-based and vegetarian stalls.',tip:'Open mornings only (6am–noon). Look for egg roll, congee and tofu stalls. Ask 有豬肉嗎? (Is there pork?) at each stall.'},
+      {id:'ch6',name:'Sun Cake (太陽餅) Bakeries',b1:'Taiwan Pastry · Halal',b2:'$',meta:'Taichung is the birthplace of the sun cake — a flaky pastry with sweet malt cream. Pure pastry, no meat, completely halal.',tip:'Best bakeries: Taiyangtan (太陽堂) and Yizhong Street area. Buy vacuum-packed for the flight home. Great gifts.'},
+    ],
+    unique:[
+      {id:'cu1',name:'Sun Cake (太陽餅)',b1:'Taichung\'s Invention',b2:'$',meta:'The flaky, buttery sun cake was invented in Taichung — a crumbly pastry shell filled with sweet malt cream. Different from pineapple cake.',tip:'Try Taiyangtan on Ziyou Rd — the oldest sun cake shop. Buy the unpackaged fresh version to taste the difference.'},
+      {id:'cu2',name:'Miyahara Ice Cream (60+ Flavours)',b1:'Iconic Dessert',b2:'$',meta:'Over 60 flavours in a breathtaking Victorian-opera-house setting. The presentation is as spectacular as the flavours.',tip:'Taro, sea salt chocolate and pineapple cake flavours are the must-tries. Go early to beat queues. NT$355 for 3 scoops.'},
+      {id:'cu3',name:'Bubble Tea · Chun Shui Tang',b1:'The Original',b2:'$',meta:'The tea house where bubble tea was supposedly invented in 1986 — their original pearl milk tea is different from every imitation.',tip:'Order the classic pearl milk tea at medium ice. Compare to modern tiger sugar versions for a fascinating evolution lesson.'},
+      {id:'cu4',name:'Taichung Second Market Breakfast',b1:'Historic Market Food',b2:'$',meta:'A Japanese-era covered market at the heart of the old city with dozens of breakfast stalls and a genuinely local atmosphere.',tip:'Open 6am–noon only. Try the duck egg spring onion pancake and century egg congee. Free seating inside the hall.'},
+      {id:'cu5',name:'Gulu Gulu Indigenous Set Meal',b1:'Indigenous Cuisine',b2:'$$',meta:'Unique upscale set meals featuring Taiwan\'s Indigenous Peoples food culture with live music at night — a genuinely one-of-a-kind dinner experience.',tip:'Address: No. 2, Lane 13, Wuquan W. 4th St, West District. Near the Art Museum. Call ahead for evening reservations.'},
+    ],
+    coffee:[
+      {id:'cc1',name:'Zhong Dao GLAb',b1:'Historic Examination Hall',b2:'$$',meta:'A specialty coffee roaster inside Taichung\'s only remaining Qing Dynasty imperial examination hall — school desks swapped for cappuccinos.',tip:'One of the most unique cafe settings in Taiwan. Artisan craft market sometimes outside on weekends. Beautifully restored space.'},
+      {id:'cc2',name:'Calligraphy Greenway Cafes',b1:'Indie Cafes',b2:'$$',meta:'The 1.6km Calligraphy Greenway hosts several excellent independent cafes — browse and pick the one that draws you in.',tip:'Open late evenings. A different vibe from daytime — more atmospheric after dark with all the bookshops lit up around them.'},
+      {id:'cc3',name:'The Naked Cafe',b1:'Euro-Inspired',b2:'$',meta:'Coffee, tea, great sandwiches and fries in a somewhat Euro-inspired atmosphere near the Art Museum.',tip:'Address: 575, Sec. 1, Meicun Rd, West District — around the corner from your hotel. Convenient for a morning coffee.'},
+    ],
+  }
+},
+
+sunmoon: {
+  categories: ['activities','food'],
+  catLabels: {activities:'🌊 To Do', food:'🍽 Food & Drinks'},
+  items: {
+    activities:[
+      {id:'sa1',name:'Sun Moon Lake Ferry Circuit',b1:'Must Do',b2:'NT$300 day pass',meta:'A day pass covers unlimited ferry rides between all three piers — Shuishe, Xuanguang Temple and Ita Thao Village. The best way to see the whole lake.',tip:'Start at Shuishe Pier early when the lake is calm and misty. The day pass is much better value than individual tickets.'},
+      {id:'sa2',name:'Wenwu Temple',b1:'Spectacular Temple',b2:'Free',meta:'A dramatic three-tiered temple perched on the hillside with enormous guardian lion statues and sweeping views of the full lake length.',tip:'Accessible by bus from Shuishe. The view from the temple steps over the lake is one of Taiwan\'s great vistas. Allow 1–2 hrs.'},
+      {id:'sa3',name:'Sun Moon Lake Ropeway & Formosan Village',b1:'Cable Car',b2:'NT$380 return',meta:'Cable car from Ita Thao up to the Formosan Aboriginal Culture Village — aerial views of the shimmering lake and access to a cultural theme park.',tip:'Opens 10:30am weekdays. Arrive early for queues. Worth it even just for the views. Park ticket sold separately.'},
+      {id:'sa4',name:'Lakeside Cycling',b1:'Cycling',b2:'NT$200–300/day',meta:'Cycling around Sun Moon Lake is one of the best ways to explore — a flat 33km lakeside path with stunning views at every turn.',tip:'Rent bikes at Shuishe Village (multiple rental shops). The path to Moon Bay is the most beautiful section. Go early before the heat.'},
+      {id:'sa5',name:'Ita Thao Village & Thao Culture',b1:'Indigenous Culture',b2:'Free entry',meta:'The last remaining village of the Thao indigenous people — their food street, traditional crafts and cultural performances are unmissable.',tip:'Kalapaw Cultural Center (moved 2024) offers pestle dance performances Thu–Sun at 11am & 4pm. Check Facebook for current schedule.'},
+      {id:'sa6',name:'Xuanzang Temple',b1:'Buddhist Temple',b2:'Free',meta:'A serene cliffside Buddhist temple overlooking the lake, dedicated to the monk Tang Sanzang — beautiful lakeside approach.',tip:'Accessible by ferry or bus. Combine with the nearby Xuanguang Temple for a full temple circuit. 30 min walk between temples.'},
+      {id:'sa7',name:'Cien Pagoda Hike',b1:'Hilltop Pagoda',b2:'Free',meta:'A 20-min hike from Xuanguang Temple up to a golden pagoda with the best bird\'s eye view of the entire lake from above.',tip:'The hike is moderately steep but short. Best done in the morning before the heat. The lake view from the top is extraordinary.'},
+      {id:'sa8',name:'Moon Bay Lakeside Walk',b1:'Scenic Walk',b2:'Free',meta:'A beautiful quiet lakeside boardwalk on the "moon" side of the lake — much calmer than the main Shuishe area.',tip:'Best done on a bicycle from Shuishe (20 min). The boardwalk has benches to stop and sit with the lake view. Magical at dusk.'},
+    ],
+    food:[
+      {id:'sf1',name:'Ita Thao Village Food Street',b1:'Indigenous Street Food',b2:'$',meta:'The main food street of the Thao indigenous village — grilled fish skewers, aba-aba sticky rice, president fish roll and millet donuts.',tip:'Order grilled fish and sticky rice items. Skip the pork-based items. Ask 沒有豬肉? (no pork?) — many stalls have pork-free options.'},
+      {id:'sf2',name:'Sun Moon Lake Assam Red Tea',b1:'Local Specialty',b2:'$',meta:'Sun Moon Lake is famous for its unique ruby-red Assam tea — grown at 762m altitude with a uniquely rich, smooth flavour unlike any other red tea.',tip:'Buy loose leaf from lakeside shops or the visitor centre. A pot at any lakeside cafe costs NT$100–150. One of Taiwan\'s finest teas.'},
+      {id:'sf3',name:'Shuishe Pier Lakeside Breakfast',b1:'Morning Meal',b2:'$',meta:'Several cafes along Shuishe pier offer breakfast sets with eggs, toast and coffee with views straight across the lake.',tip:'Egg and dairy breakfasts are halal-safe. Ask for no sausage side dish. Arrive early for the mist over the lake.'},
+      {id:'sf4',name:'Aba-Aba Sticky Rice (阿婆茶葉蛋)',b1:'Indigenous Speciality',b2:'$',meta:'Sticky rice wrapped and cooked in a traditional indigenous manner — a Thao people staple. Fragrant and surprisingly filling.',tip:'Available at Ita Thao food street stalls. Halal-friendly. Ask vendors about ingredients. A genuine taste of indigenous Taiwan.'},
+      {id:'sf5',name:'Millet Donut (小米甜甜圈)',b1:'Ita Thao Specialty',b2:'$',meta:'Handmade donuts using millet flour — a Thao indigenous ingredient — with a distinctive nutty flavour and chewy texture.',tip:'Only available at Ita Thao Village stalls. One of the most unique and genuinely local foods at Sun Moon Lake.'},
+      {id:'sf6',name:'Lakeside Restaurants · Minsheng Rd',b1:'Sit-Down Meal',b2:'$$',meta:'A small pedestrian cobbled alley in Shuishe Village with a few OK restaurants for a sit-down lunch with lake views.',tip:'Mostly Taiwanese food. Ask about ingredients for each dish. Fresh lake fish (日月潭總統魚) is the local specialty — ask if it\'s simply grilled.'},
+      {id:'sf7',name:'Starbucks · Shuishe Village',b1:'Familiar & Halal-Safe',b2:'$$',meta:'Yes, there\'s a Starbucks at Sun Moon Lake — in a beautiful lakeside setting. Good for a reliable halal-safe drink and snack.',tip:'Dairy drinks and packaged food items are halal-safe. Great spot for a morning coffee before exploring. Lakeside terrace seating.'},
+    ],
+  }
+},
+
+};
+
+// ═══════════════════════════════════════════════════════════════════
+// ITINERARY DAYS
+// ═══════════════════════════════════════════════════════════════════
+const ITIN_DAYS = [
+  {key:'d1', date:'Sun 5 Jul',  label:'Taipei · Arrival',       note:'✈ Arrive TPE ~12:10 PM · Check in afternoon'},
+  {key:'d2', date:'Mon 6 Jul',  label:'Taipei · Full Day',       note:''},
+  {key:'d3', date:'Tue 7 Jul',  label:'Jiufen Day Trip',         note:'Leave by 8–9AM · Train to Ruifang then Bus 788'},
+  {key:'d4', date:'Wed 8 Jul',  label:'Taipei · Full Day',       note:''},
+  {key:'d5', date:'Thu 9 Jul',  label:'Taipei → Fanlu',          note:'Check out 11AM · Check in SunSweet House 3:30PM'},
+  {key:'d6', date:'Fri 10 Jul', label:'Alishan Day Trip',        note:'Depart very early · Book Zhushan sunrise train ahead'},
+  {key:'d7', date:'Sat 11 Jul', label:'Fanlu → Taichung',        note:'Check out 11AM · Check in Airline Inn 3PM'},
+  {key:'d8', date:'Sun 12 Jul', label:'Sun Moon Lake Day Trip',  note:'Depart by 8AM · Bus 6670 from Taichung HSR · Last bus ~5:30PM'},
+  {key:'d9', date:'Mon 13 Jul', label:'Taichung · Full Day',     note:''},
+  {key:'d10',date:'Tue 14 Jul', label:'⚠ Fly Home',              note:'BI 452 departs TPE 2:15PM · Leave hotel by 9AM'},
+];
+
+// ═══════════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════════
+const STATE = {}; // STATE[locId][catId] = [{...item, status}]
+const ARCHIVED = {}; // ARCHIVED[locId] = [{...item, _cat}]
+const ITIN = {}; // ITIN[dayKey] = [{id, name, loc, note}]
+
+ITIN_DAYS.forEach(d => { ITIN[d.key] = []; });
+
+Object.keys(GUIDE_DATA).forEach(loc => {
+  STATE[loc] = {};
+  ARCHIVED[loc] = [];
+  Object.keys(GUIDE_DATA[loc].items).forEach(cat => {
+    STATE[loc][cat] = GUIDE_DATA[loc].items[cat].map(i => ({...i, status:'pending'}));
+  });
+});
+
+// ═══════════════════════════════════════════════════════════════════
+// SCREEN NAV
+// ═══════════════════════════════════════════════════════════════════
+let curScreen = 'home', curLoc = null, curCat = null, curItinDay = 'd1';
+let movingItem = null, movingCat = null, movingLoc = null;
+let itinItemId = null, itinItemLoc = null, itinItemCat = null;
+
+function showScreen(s) {
+  document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
+  document.getElementById('screen-' + s).classList.add('active');
+  curScreen = s;
+  window.scrollTo(0,0);
+  if (s === 'home') renderHome();
+  if (s === 'itinerary') renderItinerary();
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// HOME
+// ═══════════════════════════════════════════════════════════════════
+function renderHome() {
+  const c = document.getElementById('home-locs');
+  c.innerHTML = LOCS.map(loc => {
+    const a = loc.accent;
+    return `<div class="loc-card" style="background:${a}11;border-color:${a}33">
+      <div class="loc-inner">
+        <span class="loc-emoji">${loc.emoji}</span>
+        <div class="loc-info" style="flex:1">
+          <div style="display:flex;justify-content:space-between;align-items:baseline">
+            <h3 style="color:${a}">${loc.name}</h3>
+            ${loc.nights ? `<span class="loc-nights">${loc.nights} nights</span>` : ''}
+          </div>
+          <p class="sub">${loc.region}</p>
+          ${loc.nights ? `<p class="hotel">🏨 ${loc.hotel}</p><p class="pin">📌 PIN: ${loc.pin}</p>` : ''}
+          <p class="loc-note" style="color:${a};background:${a}11;border-color:${a}44">${loc.note}</p>
+        </div>
+      </div>
+      <button class="loc-btn" style="background:${a}" onclick="openGuide('${loc.id}')">Explore ${loc.name} →</button>
+    </div>`;
+  }).join('');
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// GUIDE
+// ═══════════════════════════════════════════════════════════════════
+function openGuide(locId) {
+  curLoc = locId;
+  const loc = LOCS.find(l => l.id === locId);
+  const gd = GUIDE_DATA[locId];
+  curCat = gd.categories[0];
+  document.getElementById('guide-title').textContent = loc.emoji + ' ' + loc.name;
+
+  // Build cat nav
+  const nav = document.getElementById('guide-cats');
+  nav.innerHTML = gd.categories.map(cat =>
+    `<button class="cat-btn" id="catbtn-${cat}" style="color:${cat===curCat?loc.accent:'#666'};border-bottom-color:${cat===curCat?loc.accent:'transparent'}" onclick="switchCat('${cat}')">${gd.catLabels[cat]}</button>`
+  ).join('');
+
+  // Build section divs
+  const secs = document.getElementById('guide-sections');
+  secs.innerHTML = gd.categories.map(cat =>
+    `<div id="gsec-${cat}" class="guide-section ${cat===curCat?'active':''}">
+      <p class="sec-label" style="margin-top:14px">${gd.catLabels[cat]}</p>
+      <div id="gcards-${cat}"></div>
+    </div>`
+  ).join('');
+
+  gd.categories.forEach(cat => renderGCat(cat));
+  showScreen('guide');
+}
+
+function switchCat(cat) {
+  const gd = GUIDE_DATA[curLoc];
+  const loc = LOCS.find(l => l.id === curLoc);
+  curCat = cat;
+  document.querySelectorAll('.cat-btn').forEach(b => {
+    const bc = b.id.replace('catbtn-','');
+    b.style.color = bc === cat ? loc.accent : '#666';
+    b.style.borderBottomColor = bc === cat ? loc.accent : 'transparent';
+  });
+  document.querySelectorAll('.guide-section').forEach(s => s.classList.remove('active'));
+  document.getElementById('gsec-' + cat).classList.add('active');
+}
+
+function renderGCat(cat) {
+  const loc = LOCS.find(l => l.id === curLoc);
+  const items = STATE[curLoc][cat] || [];
+  const yes = items.filter(i=>i.status==='yes');
+  const maybe = items.filter(i=>i.status==='maybe');
+  const pending = items.filter(i=>i.status==='pending');
+  const archived = (ARCHIVED[curLoc]||[]).filter(a=>a._cat===cat);
+  let html = '';
+  if (yes.length) { html += `<p class="group-lbl" style="color:#4ade80">✓ Going (${yes.length})</p>`; yes.forEach(i => html += buildCard(i,cat,loc.accent)); }
+  if (maybe.length) { html += `<p class="group-lbl" style="color:#facc15">◐ Maybe (${maybe.length})</p>`; maybe.forEach(i => html += buildCard(i,cat,loc.accent)); }
+  if (pending.length) { html += `<p class="group-lbl">All Options</p>`; pending.forEach(i => html += buildCard(i,cat,loc.accent)); }
+  if (archived.length) {
+    html += `<div class="archive-section"><p class="archive-title">📦 Skipped</p>`;
+    archived.forEach(i => {
+      html += `<div class="arc-row">
+        <div><p class="arc-name">${i.name}</p><p class="arc-cat">${i._cat}</p></div>
+        <button class="restore-btn" data-id="${i.id}" data-cat="${cat}" onclick="restoreItem(this.dataset.id, this.dataset.cat)">Restore</button>
+      </div>`;
+    });
+    html += '</div>';
+  }
+  document.getElementById('gcards-' + cat).innerHTML = html;
+}
+
+function buildCard(item, cat, accent) {
+  const gUrl  = 'https://www.google.com/search?q=' + encodeURIComponent(item.name + ' Taiwan');
+  const mUrl  = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent((item.maps || item.name) + ' Taiwan');
+  const halalHtml = item.halal ? `<div><span class="halal-pill">🌙 ${item.halal}</span></div>` : '';
+  const inItin = Object.values(ITIN).some(day => day.some(e => e.id === item.id));
+  const district = DISTRICTS[item.id] || '';
+  return `<div class="card ${item.status}" id="card-${item.id}" data-id="${item.id}" data-cat="${cat}">
+    <div class="card-head">
+      <div style="flex:1">
+        <p class="card-name"><a href="${gUrl}" target="_blank">${item.name} ↗</a></p>
+        <div class="badges">
+          <span class="bdg" style="background:${accent}22;color:${accent}">${item.b1}</span>
+          <span class="bdg" style="background:rgba(255,255,255,0.05);color:#777">${item.b2}</span>
+          ${district ? `<span class="bdg" style="background:rgba(56,189,248,0.1);color:#38bdf8">📍 ${district}</span>` : ''}
+          <a href="${mUrl}" target="_blank" class="bdg map-bdg">↗ Maps</a>
+        </div>
+      </div>
+    </div>
+    <p class="card-meta">${item.meta}</p>
+    <p class="card-tip">💡 ${item.tip}</p>
+    ${halalHtml}
+    <div class="card-btns">
+      <button class="btn btn-yes ${item.status==='yes'?'on':''}"  data-action="yes"  data-id="${item.id}" data-cat="${cat}" onclick="cardAction(this)">✓ Yes</button>
+      <button class="btn btn-maybe ${item.status==='maybe'?'on':''}" data-action="maybe" data-id="${item.id}" data-cat="${cat}" onclick="cardAction(this)">~ Maybe</button>
+      <button class="btn btn-move"  data-action="move"  data-id="${item.id}" data-cat="${cat}" onclick="cardAction(this)">↕ Cat</button>
+      <button class="btn btn-itin ${inItin?'on':''}"  data-action="itin"  data-id="${item.id}" data-cat="${cat}" onclick="cardAction(this)">📅 Add</button>
+      <button class="btn btn-skip"  data-action="skip"  data-id="${item.id}" data-cat="${cat}" onclick="cardAction(this)">✕</button>
+    </div>
+  </div>`;
+}
+
+function cardAction(btn) {
+  const id     = btn.dataset.id;
+  const cat    = btn.dataset.cat;
+  const action = btn.dataset.action;
+  if      (action === 'yes')   setStatus(id, cat, 'yes');
+  else if (action === 'maybe') setStatus(id, cat, 'maybe');
+  else if (action === 'skip')  setStatus(id, cat, 'skip');
+  else if (action === 'move')  openMoveModal(id, cat);
+  else if (action === 'itin') {
+    const allItems = Object.values(STATE[curLoc]).flat();
+    const item = allItems.find(i => i.id === id);
+    if (item) openItinModal(id, cat, item.name);
+  }
+}
+
+function setStatus(id, cat, status) {
+  const list = STATE[curLoc][cat];
+  const idx = list.findIndex(i=>i.id===id);
+  if (idx===-1) return;
+  const item = list[idx];
+  if (status==='skip') {
+    ARCHIVED[curLoc].push({...item, _cat:cat});
+    list.splice(idx,1);
+  } else {
+    item.status = item.status===status ? 'pending' : status;
+    // Auto-open itinerary modal when marked yes
+    if (item.status === 'yes') {
+      openItinModal(id, cat, item.name);
+      renderGCat(cat); return;
+    }
+  }
+  renderGCat(cat);
+}
+
+function restoreItem(id, cat) {
+  const idx = (ARCHIVED[curLoc]||[]).findIndex(a=>a.id===id);
+  if (idx===-1) return;
+  const item = ARCHIVED[curLoc].splice(idx,1)[0];
+  STATE[curLoc][item._cat].push({...item, status:'pending'});
+  renderGCat(cat);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// MOVE CATEGORY MODAL
+// ═══════════════════════════════════════════════════════════════════
+function openMoveModal(id, cat) {
+  movingItem = id; movingCat = cat; movingLoc = curLoc;
+  const gd = GUIDE_DATA[curLoc];
+  const item = Object.values(STATE[curLoc]).flat().find(i => i.id === id);
+  document.getElementById('modal-move-sub').textContent = 'Moving: ' + (item ? item.name : '');
+  const opts = document.getElementById('modal-move-opts');
+  opts.innerHTML = '';
+  Object.entries(gd.catLabels).forEach(([k, v]) => {
+    const btn = document.createElement('button');
+    btn.className = 'move-opt' + (k === cat ? ' self' : '');
+    btn.textContent = v + (k === cat ? ' (current)' : '');
+    btn.dataset.targetcat = k;
+    btn.addEventListener('click', function() { doMove(this.dataset.targetcat); });
+    opts.appendChild(btn);
+  });
+  document.getElementById('modal-move').classList.remove('hidden');
+}
+function doMove(targetCat) {
+  const list = STATE[movingLoc][movingCat];
+  const idx = list.findIndex(i=>i.id===movingItem);
+  if (idx===-1){hideModal('modal-move');return;}
+  const item = list.splice(idx,1)[0];
+  item.status = 'pending';
+  if (!STATE[movingLoc][targetCat]) STATE[movingLoc][targetCat] = [];
+  STATE[movingLoc][targetCat].push(item);
+  hideModal('modal-move');
+  renderGCat(movingCat);
+  if (targetCat !== movingCat) renderGCat(targetCat);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// ITINERARY ADD MODAL
+// ═══════════════════════════════════════════════════════════════════
+function openItinModal(id, cat, name) {
+  itinItemId = id; itinItemLoc = curLoc; itinItemCat = cat;
+  document.getElementById('modal-itin-sub').textContent = '📌 ' + name;
+  const opts = document.getElementById('modal-itin-opts');
+  opts.innerHTML = '';
+
+  const groups = [
+    { label: 'Taipei (5–9 Jul)',                     days: ITIN_DAYS.slice(0,5)  },
+    { label: 'Fanlu / Alishan (9–11 Jul)',           days: ITIN_DAYS.slice(4,7)  },
+    { label: 'Taichung / Sun Moon Lake (11–14 Jul)', days: ITIN_DAYS.slice(6,10) },
+  ];
+
+  groups.forEach(({ label, days }) => {
+    const grpLabel = document.createElement('p');
+    grpLabel.className = 'day-opt-grp';
+    grpLabel.textContent = label;
+    opts.appendChild(grpLabel);
+
+    days.forEach(d => {
+      const count      = ITIN[d.key].length;
+      const alreadyHas = ITIN[d.key].some(e => e.id === id);
+      const dayNum     = ITIN_DAYS.indexOf(d) + 1;
+
+      const btn = document.createElement('button');
+      btn.className = 'day-opt' + (alreadyHas ? ' self' : '');
+      btn.dataset.daykey = d.key;
+      btn.addEventListener('click', function() { addToItin(this.dataset.daykey); });
+
+      const top = document.createElement('div');
+      top.className = 'do-day';
+      top.textContent = 'Day ' + dayNum + ' · ' + d.date;
+      btn.appendChild(top);
+
+      const mid = document.createElement('div');
+      mid.style.fontWeight = '400';
+      mid.textContent = d.label;
+      if (d.note) {
+        const note = document.createElement('span');
+        note.style.cssText = 'color:#555;font-size:10px;margin-left:4px';
+        note.textContent = '· ' + d.note;
+        mid.appendChild(note);
+      }
+      btn.appendChild(mid);
+
+      const bot = document.createElement('div');
+      bot.style.cssText = 'font-size:10px;color:#555;margin-top:2px';
+      bot.textContent = count + ' item' + (count !== 1 ? 's' : '') + ' planned' + (alreadyHas ? ' · ✓ already added' : '');
+      btn.appendChild(bot);
+
+      opts.appendChild(btn);
+    });
+  });
+
+  document.getElementById('modal-itin').classList.remove('hidden');
+}
+
+function addToItin(dayKey) {
+  const loc = LOCS.find(l=>l.id===itinItemLoc);
+  const allItems = Object.values(STATE[itinItemLoc]).flat();
+  const item = allItems.find(i=>i.id===itinItemId);
+  if (!item) { hideModal('modal-itin'); return; }
+  if (!ITIN[dayKey].some(e=>e.id===itinItemId)) {
+    ITIN[dayKey].push({
+      id:item.id, name:item.name, loc:loc.name, emoji:loc.emoji,
+      b1:item.b1, accent:loc.accent,
+      district: DISTRICTS[item.id] || ''
+    });
+  }
+  hideModal('modal-itin');
+  renderGCat(itinItemCat);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// ITINERARY SCREEN
+// ═══════════════════════════════════════════════════════════════════
+function renderItinerary() {
+  // Day tabs
+  const tabs = document.getElementById('itin-day-tabs');
+  tabs.innerHTML = ITIN_DAYS.map((d,i) =>
+    `<button class="day-tab ${d.key===curItinDay?'active':''}" onclick="setItinDay('${d.key}')" ${d.key===curItinDay?'style="border-color:#d4a55a;color:#d4a55a"':''}>
+      <div class="dn">Day ${i+1}</div>
+      <div>${d.date.split(' ').slice(0,2).join(' ')}</div>
+      <div style="font-size:9px;margin-top:2px;opacity:0.7">${d.label.length>14?d.label.substring(0,13)+'…':d.label}</div>
+    </button>`
+  ).join('');
+  renderItinCards();
+}
+
+function setItinDay(key) {
+  curItinDay = key;
+  renderItinerary();
+}
+
+function renderItinCards() {
+  const day = ITIN_DAYS.find(d=>d.key===curItinDay);
+  const items = ITIN[curItinDay];
+  const c = document.getElementById('itin-cards');
+  let html = `<p class="itin-day-label">${day.date} · ${day.label}${day.note?'<br><span style="color:#666;font-size:9px">'+day.note+'</span>':''}</p>`;
+  if (!items.length) {
+    html += `<div class="itin-empty">No activities planned yet.<br>Mark items ✓ Yes or tap 📅 Add in any guide.</div>`;
+  } else {
+    items.forEach((item,idx) => {
+      const isFirst = idx === 0;
+      const isLast  = idx === items.length - 1;
+      html += `<div class="itin-card" id="ic-${curItinDay}-${idx}">
+        <div class="itin-card-top">
+          <div style="display:flex;flex-direction:column;gap:3px;flex-shrink:0">
+            <button class="move-ud-btn" data-day="${curItinDay}" data-idx="${idx}" data-dir="up"
+              onclick="moveItinItem(this.dataset.day,parseInt(this.dataset.idx),'up')"
+              style="opacity:${isFirst?'0.2':'1'}" ${isFirst?'disabled':''}>▲</button>
+            <button class="move-ud-btn" data-day="${curItinDay}" data-idx="${idx}" data-dir="down"
+              onclick="moveItinItem(this.dataset.day,parseInt(this.dataset.idx),'down')"
+              style="opacity:${isLast?'0.2':'1'}" ${isLast?'disabled':''}>▼</button>
+          </div>
+          <div style="flex:1;padding:0 8px">
+            <div style="display:flex;align-items:center;gap:6px">
+              <span style="font-size:14px">${item.emoji}</span>
+              <p class="itin-card-name">${item.name}</p>
+            </div>
+            <p class="itin-card-loc">${item.loc}${item.district ? (item.manual ? ' · ' + item.district : ' · 📍 ' + item.district) : ''} · ${item.b1}</p>
+          </div>
+          <button class="itin-card-remove" data-day="${curItinDay}" data-idx="${idx}"
+            onclick="removeFromItin(this.dataset.day, parseInt(this.dataset.idx))">✕</button>
+        </div>
+      </div>`;
+    });
+  }
+  c.innerHTML = html;
+}
+
+function addManualItem() {
+  const name = document.getElementById('manual-name').value.trim();
+  if (!name) {
+    document.getElementById('manual-name').style.borderColor = 'rgba(239,68,68,0.6)';
+    setTimeout(() => document.getElementById('manual-name').style.borderColor = 'rgba(255,255,255,0.1)', 1500);
+    return;
+  }
+  const note = document.getElementById('manual-note').value.trim();
+  const type = document.getElementById('manual-type').value;
+  const day  = ITIN_DAYS.find(d => d.key === curItinDay);
+  ITIN[curItinDay].push({
+    id:    'manual-' + Date.now(),
+    name:  name,
+    loc:   day.label,
+    emoji: type.split(' ')[0],
+    b1:    type.replace(/^.\s/, ''),
+    accent:'#d4a55a',
+    district: note || '',
+    manual: true,
+  });
+  document.getElementById('manual-name').value = '';
+  document.getElementById('manual-note').value = '';
+  renderItinCards();
+}
+
+function moveItinItem(dayKey, idx, dir) {
+  const items = ITIN[dayKey];
+  if (dir === 'up' && idx > 0) {
+    [items[idx-1], items[idx]] = [items[idx], items[idx-1]];
+  } else if (dir === 'down' && idx < items.length - 1) {
+    [items[idx], items[idx+1]] = [items[idx+1], items[idx]];
+  }
+  renderItinCards();
+}
+
+function removeFromItin(dayKey, idx) {
+  ITIN[dayKey].splice(idx,1);
+  renderItinCards();
+}
+
+// ── District lookup ──
+const DISTRICTS = {
+  ta1:'Zhongzheng',ta2:'Xinyi',ta3:'Wanhua',ta4:'Datong',ta5:'Xinyi',
+  ta6:'Zhongzheng',ta7:'Shilin',ta8:'Wenshan',ta9:'Tamsui',ta10:'Wanhua',
+  ta11:'Da\'an',ta12:'Songshan',
+  tk1:'Wenshan',tk2:'Zhongzheng',tk3:'Wanhua',tk4:'Shilin',tk5:'Shilin',
+  tk6:'Shilin',tk7:'Da\'an',tk8:'Shilin',tk9:'Wenshan',tk10:'Zhongshan',
+  th1:'Zhongshan',th2:'Xinyi',th3:'Zhongzheng',th4:'Da\'an',th5:'Da\'an',
+  th6:'Zhongshan',th7:'Da\'an',th8:'Zhongshan',th9:'Da\'an',th10:'Various',
+  th11:'New Taipei',th12:'Da\'an',
+  tu1:'Da\'an',tu2:'Da\'an',tu3:'Da\'an',tu4:'Zhongshan',tu5:'Gongguan',
+  tu6:'Da\'an',tu7:'Various',tu8:'Various',tu9:'Shilin',tu10:'Songshan',
+  tu11:'Various',tu12:'Zhongzheng',
+  tc1:'Zhongzheng',tc2:'Zhongshan',tc3:'Various',tc4:'Da\'an',
+  tc5:'Da\'an',tc6:'Da\'an',tc7:'Xinyi',
+  ja1:'Old Street',ja2:'Old Street',ja3:'Jinguashi',ja4:'Old Street',
+  ja5:'Old Street',ja6:'Summit',ja7:'Shifen',
+  jf1:'Old Street',jf2:'Old Street',jf3:'Old Street',jf4:'Old Street',
+  jf5:'Old Street',jf6:'Old Street',jf7:'Old Street',jf8:'Old Street',jf9:'Taipei',
+  jc1:'Jiufen',jc2:'Qingbian Rd',jc3:'Old Street',jc4:'Ruifang Stn',
+  aa1:'Zhushan',aa2:'Forest Park',aa3:'Zhaoping',aa4:'Forest Railway',
+  aa5:'Forest Park',aa6:'Fenqihu',aa7:'Alishan Village',aa8:'Fanlu',
+  af1:'Forest Park',af2:'Fenqihu',af3:'Alishan Village',af4:'Alishan Village',
+  af5:'Forest Park',af6:'Alishan Stn',af7:'Chiayi City',
+  ca1:'South District',ca2:'West District',ca3:'West District',ca4:'Xitun',
+  ca5:'North District',ca6:'Houli',ca7:'Central District',ca8:'Central District',
+  ca9:'Qingshui',ca10:'Central District',
+  ch1:'West District',ch2:'West District',ch3:'Central District',ch4:'Various',
+  ch5:'Central District',ch6:'Central District',
+  cu1:'Central District',cu2:'Central District',cu3:'Central District',
+  cu4:'Central District',cu5:'West District',
+  cc1:'Central District',cc2:'West District',cc3:'West District',
+  sa1:'Shuishe',sa2:'Wenwu',sa3:'Ita Thao',sa4:'Shuishe',
+  sa5:'Ita Thao',sa6:'Xuanguang',sa7:'Xuanguang',sa8:'Moon Bay',
+  sf1:'Ita Thao',sf2:'Shuishe',sf3:'Shuishe',sf4:'Ita Thao',
+  sf5:'Ita Thao',sf6:'Shuishe',sf7:'Shuishe',
+};
+
+// ── Modal helpers ──
+function hideModal(id) { document.getElementById(id).classList.add('hidden'); }
+function closeBg(e,id) { if(e.target===document.getElementById(id)) hideModal(id); }
+
+// ── localStorage persistence ──
+const SAVE_KEY = 'taiwan_trip_2026';
+
+function saveState() {
+  try {
+    localStorage.setItem(SAVE_KEY, JSON.stringify({
+      STATE:    STATE,
+      ARCHIVED: ARCHIVED,
+      ITIN:     ITIN,
+    }));
+  } catch(e) { console.warn('Save failed', e); }
+}
+
+function loadState() {
+  try {
+    const saved = localStorage.getItem(SAVE_KEY);
+    if (!saved) return;
+    const data = JSON.parse(saved);
+
+    // Restore STATUS on items (yes/maybe) — merge into existing STATE structure
+    if (data.STATE) {
+      Object.keys(data.STATE).forEach(loc => {
+        if (!STATE[loc]) return;
+        Object.keys(data.STATE[loc]).forEach(cat => {
+          if (!STATE[loc][cat]) return;
+          // Build a map of saved statuses
+          const savedMap = {};
+          (data.STATE[loc][cat] || []).forEach(i => { savedMap[i.id] = i.status; });
+          // Apply to current STATE (keeps fresh data, restores status)
+          STATE[loc][cat] = STATE[loc][cat].filter(i => savedMap[i.id] !== undefined || true);
+          STATE[loc][cat].forEach(i => { if (savedMap[i.id]) i.status = savedMap[i.id]; });
+          // Remove items that were skipped (not in STATE, moved to ARCHIVED)
+          const archivedIds = (data.ARCHIVED[loc] || []).map(a => a.id);
+          STATE[loc][cat] = STATE[loc][cat].filter(i => !archivedIds.includes(i.id));
+        });
+      });
+    }
+
+    // Restore archived items
+    if (data.ARCHIVED) {
+      Object.keys(data.ARCHIVED).forEach(loc => {
+        if (ARCHIVED[loc] !== undefined) ARCHIVED[loc] = data.ARCHIVED[loc] || [];
+      });
+    }
+
+    // Restore itinerary (includes manual entries)
+    if (data.ITIN) {
+      Object.keys(data.ITIN).forEach(dayKey => {
+        if (ITIN[dayKey] !== undefined) ITIN[dayKey] = data.ITIN[dayKey] || [];
+      });
+    }
+  } catch(e) { console.warn('Load failed', e); }
+}
+
+// Patch all state-mutating functions to auto-save
+const _setStatus       = setStatus;
+const _addToItin       = addToItin;
+const _removeFromItin  = removeFromItin;
+const _moveItinItem    = moveItinItem;
+const _restoreItem     = restoreItem;
+const _doMove          = doMove;
+const _addManualItem   = addManualItem;
+
+setStatus      = function(...a) { _setStatus(...a);      saveState(); };
+addToItin      = function(...a) { _addToItin(...a);      saveState(); };
+removeFromItin = function(...a) { _removeFromItin(...a); saveState(); };
+moveItinItem   = function(...a) { _moveItinItem(...a);   saveState(); };
+restoreItem    = function(...a) { _restoreItem(...a);    saveState(); };
+doMove         = function(...a) { _doMove(...a);         saveState(); };
+addManualItem  = function(...a) { _addManualItem(...a);  saveState(); };
+
+// ── Init ──
+loadState();
+renderHome();
+</script>
+</body>
+</html>
